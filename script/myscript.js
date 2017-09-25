@@ -294,19 +294,30 @@ function setSpeed() {
     factor = Math.pow(2, val);
 }
 
+function setDisabled(flag) {
+    ["delete_vertex", "clear_vertices", "delete_edge", "clear_edges"]
+        .forEach(function (id) {
+            document.getElementById(id).disabled = flag;
+        });
+    newEdgeBegin = undefined;
+}
+
 buttonPause.onclick = function () {
     buttonPause.src = "images/pause2.png";
     buttonStart.disabled = false;
     buttonStart.src = "images/start1.png";
     isPause = true;
+    setDisabled(true);
     setSpeed();
 };
 
 buttonStart.onclick = function () {
     buttonStart.src = "images/start2.png";
     buttonPause.src = "images/pause1.png";
+    setDisabled(true);
     buttonPause.disabled = false;
     buttonStart.disabled = true;
+	
     if (isPause)
         isPause = !isPause;
     else {
@@ -317,7 +328,7 @@ buttonStart.onclick = function () {
 
 buttonStop.onclick = function () {
     isStarted = false;
-  //  setDisabled(false);
+    setDisabled(false);
     answer.fill(Infinity);
     buttonStop.src = "images/stop2.png";
     buttonStart.src = "images/start1.png";
