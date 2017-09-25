@@ -1,0 +1,89 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+    <style>
+        body {
+            background-size: 100% auto;
+        }
+
+        #myCanvas { 
+            position: absolute;
+            left: 200px; 
+            top: 180px; 
+            background: #FFFFFF; 
+			
+        }
+		
+		.block1 { 
+            width: 200px;
+            padding: 1% 1%;
+			float: left;
+            
+        }
+
+        .block2 {
+			padding: 1%;
+            width: 200px;
+			float: left;
+            
+        }
+
+        
+        #stop, #start, #pause {
+            padding-top: 2%;
+            width: 50px;
+            height: 50px;
+			
+        }
+
+    </style>
+
+    <title>
+        Курсовой проект
+    </title>
+
+</head>
+
+<body background="images/image1.jpg">  <!-- задаем фон документа-->
+
+<h1 align="center"><font face="Times New Roman" color="#800080" size="6"> Алгоритм обхода вершин и дуг графа в
+    ширину </font></h1>
+<!-- создаем кнопки для управления графом-->
+<div class="block1">
+<p><font face="Times New Roman" color="#9400D3"> Удаление вершин </font></p>
+
+<p>
+    <button id="delete_vertex">Удалить последнюю</button>
+</p>
+<p>
+    <button id="clear_vertices">Удалить все</button>
+</p>
+
+    <p><font face="Times New Roman" color="#9400D3"> Удаление рёбер </font></p>
+    <p>
+        <button id="delete_edge">Удалить последнее</button>
+    </p>
+    <p>
+        <button id="clear_edges">Удалить все рёбра</button>
+    </p>
+</div>
+
+<!--бегунок-->
+<div class="block2">
+    <p><font face="Times New Roman" color="#9400D3"> Скорость обхода графа </font></p>
+    <input type="range" min='-1' max='1' step='0' value="0" id="speed_factor">
+</div>
+<!--холст для рисования-->
+<canvas align=center id="myCanvas" width="1000" height="500" style="border:1px solid #000000;">
+</canvas>
+<!--вставляем картинки-кнопки для управления алгоритмом(меняются при нажатии)-->
+<input type="image" img id="stop" src="images/stop1.png" title="Сброс">
+<input type="image" img id="start" src="images/start1.png" title="Старт">
+<input type="image" img id="pause" src="images/pause1.png" title="Пауза" disabled>
+
+<script src="script/myscript.js" charset="UTF-8"></script>  <!--код алгоритма-->
+
+</body>
+
+</html> 
