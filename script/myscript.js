@@ -33,8 +33,6 @@ var orientedEdges = [];//ребра для графа обхода
 var queue = []; //контейнер - очередь
 var actions = [], actionsInd = -1; // события
 
-/*Создание вершин-окружностей
-  x, y - координаты центра вершины, name - имя */
 function Vertex(x, y, name) {
     this.x = x;
     this.y = y;
@@ -55,8 +53,6 @@ Vertex.prototype.display = function () {
     displayText(this.name, this.x, this.y)
 };
 
-/*Создание ребер
-  begin, end - начало и конец ребра */
 function Edge(begin, end) {
     this.begin = begin;
     this.end = end;
@@ -71,8 +67,6 @@ Edge.prototype.display = function () {
     ctx.stroke();
 };
 
-/*ориентированные ребра для графа обхода
-  принимает begin, end - начало и конец ребра */
 function OrientedEdge() {
     Edge.apply(this, arguments);
     this.length = VERTEX_RADIUS
@@ -110,8 +104,6 @@ OrientedEdge.prototype.getArrow = function () {
     return {x: this.begin.x - this.length * Math.sin(angle), y: this.begin.y - this.length * Math.cos(angle)};
 };
 
-/*класс для вершин в очереди
-  принимает x, y - координаты центра вершины, name - имя*/ 
 function RectVertex() {
     Vertex.apply(this, arguments);
 }
@@ -125,7 +117,6 @@ RectVertex.prototype.display = function () {
     displayText(this.name, this.x, this.y);
 };
 
-//функция отображающая text по координатам x, y 
 function displayText(text, x, y) {
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'center';
@@ -134,19 +125,14 @@ function displayText(text, x, y) {
     ctx.fillText(text, x, y);
 }
 
-/*Рассчитываем расстояние
-  x1, y1, x2, y2 - кооринаты двух точек*/ 
 function distance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
-/*проверяет находится ли точка в вершине или нет
-  x, y - координаты точки, v - вершина */
 function isPointInVertex(x, y, v) {
     return distance(x, y, v.x, v.y) <= VERTEX_RADIUS;
 }
 
-/*Подождун для нового действия*/
 function nextAction() {
     var TIMEOUT = 100;
     var oldTime = Date.now(), time = oldTime;
@@ -159,7 +145,6 @@ function nextAction() {
     }, INTERVAL);
 }
 
-/*при вызове отображает все элементы*/
 function displayElements() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = BACKGROUND_COLOR;
@@ -172,8 +157,6 @@ function displayElements() {
     displayAns();
 }
 
-/*отображает таблицу ответов:первая строка - вершины, вторая - дистанции
- Вначале все дистанции - бесконечность*/
 function displayAns() {
     ctx.clearRect(ANS_LEFT, canvas.height - ANS_BOLD * 2, ANS_BOLD * answer.length, ANS_BOLD * 2);
     ctx.fillStyle = VERTEX_COLOR;
@@ -191,10 +174,6 @@ function displayAns() {
     })
 }
 
-/*Изменение цветов вершин при обходе графа в ширину
- Синяя вершина - вершина, помещенная в очередь
- Красная вершина - вершина, извлеченная из очереди (просмотренная)
- vertex - вершина, цвет которой будет меняться*/
 function ColorChange(vertex) {
     this.vertex = vertex;
 }
@@ -221,8 +200,6 @@ ColorChange.prototype.doIt = function () {
     }, INTERVAL)
 };
 
-/*Реализуем движение стрелки между вершинами
-  arrow - ориентированное ребро (OrientedEdge)*/
 function MovingArrow(arrow) {
     this.arrow = arrow
 }
@@ -251,7 +228,7 @@ MovingArrow.prototype.doIt = function () {
     }, INTERVAL)
 };
 
-/*Реализуем продвижение очереди на холсте*/
+
 function MovingQueue() {
 }
 
@@ -275,7 +252,6 @@ MovingQueue.prototype.doIt = function () {
     }, INTERVAL);
 };
 
-/*Алгоритм обхода графа в ширину*/
 function bfs() {
     answer[0] = 0;
     isStarted = true;
@@ -303,7 +279,6 @@ function bfs() {
     nextAction();
 }
 
-/*Кнопки-управления обхода графа*/
 var buttonPause = document.getElementById("pause");
 var buttonStart = document.getElementById("start");
 var buttonStop = document.getElementById("stop");
@@ -361,8 +336,6 @@ buttonStop.onclick = function () {
     buttonStop.src = "images/stop1.png"
 };
 
-/*Кнопки - конструкторы вершин графа*/
-
 document.getElementById("delete_vertex").onclick = function () {
     vertices.pop();
     answer.pop();
@@ -378,7 +351,6 @@ document.getElementById("clear_vertices").onclick = function () {
     edges = [];
     displayElements();
 };
-/*Кнопки - конструкторы ребер графа*/
 
 document.getElementById("delete_edge").onclick = function () {
     edges.pop();
@@ -390,7 +362,6 @@ document.getElementById("clear_edges").onclick = function () {
     displayElements();
 };
 
-/*Узнаем позицию мыши на холсте*/
 function getMousePos(evt) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -416,7 +387,6 @@ function isEdge(begin, end) {
     return false;
 }
 
-/*рисуем граф*/
 var newEdgeBegin;
 canvas.addEventListener("click", function (evt) {
     var a = getMousePos(evt);
